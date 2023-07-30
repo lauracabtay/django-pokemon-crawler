@@ -1,19 +1,16 @@
 from django.db import transaction
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views import View
 from .models import Pokemon, PokemonAbility, PokemonStats, PokemonType
 import re
 import requests
+from rest_framework.response import Response
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.views import APIView
 
-
-def home(request):
-    return HttpResponse("Gotta Catch 'Em All!")
-
-
-def get_all_pokemons(request):
-    return HttpResponse("This is the get_all_pokemons endpoint")
+from .models import Pokemon, PokemonAbility, PokemonType, PokemonStats
+from .serializers import PokemonSerializer
+import logging
 
 
 # HELPER FUNCTIONS
@@ -75,7 +72,7 @@ def get_all_pokemon_ids(request) -> list:
 # VIEWS
 
 
-class PokemonDataView(View):
+class PokemonUpdateDataView(View):
     def update_or_create_record(self, request, pokemon_id) -> None:
         """
         Update or create a Pokemon record using data fetched from the PokeAPI.
@@ -132,14 +129,32 @@ class PokemonDataView(View):
             request: Django HTTP request object.
         """
         pokemons_ids = get_all_pokemon_ids(request)
+        pokemon_count = len(pokemons_ids)
+        processed_pokemons = 0
 
         for pokemon_id in pokemons_ids:
             self.update_or_create_record(request, pokemon_id)
+            processed_pokemons += 1
+
+            if processed_pokemons % 10 == 0:
+                print(
+                    f"{round((processed_pokemons/pokemon_count) * 100, 1)}% completed"
+                )
 
     def get(self, request):
         self.update_or_create_all(request)
 
         return JsonResponse({"message": "Data update successful."})
-        # Can I have a button to get update
-        # Need to redirect and maybe get a counter
-        # Need to redirect when data is successful
+
+
+class GetAllPokemonsView(APIView):
+    def get(self, request):
+        all_pokemon_names = Pokemon.objects.values_list("pokemon_name", flat=True)
+        sorted_pokemon_names = sorted(all_pokemon_names, key=str.casefold)
+        return Response({"pokemon_names": sorted_pokemon_names})
+
+
+class PokemonDetailsView(RetrieveAPIView):
+    lookup_field = "pokemon_name"
+    queryset = Pokemon.objects.all()
+    serializer_class = PokemonSerializer
