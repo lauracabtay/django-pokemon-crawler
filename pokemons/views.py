@@ -103,14 +103,14 @@ class PokemonDataView(View):
                     pokemon_ability, _ = PokemonAbility.objects.update_or_create(
                         ability_name=ability_info["ability"]["name"],
                         defaults={"is_hidden": ability_info["is_hidden"]},
-                        pokemon_id=pokemon,
+                        pokemon=pokemon,
                     )
 
                 # Update Pokemon types
                 for type_info in pokemon_data["types"]:
                     pokemon_type, _ = PokemonType.objects.update_or_create(
                         type_name=type_info["type"]["name"],
-                        pokemon_id=pokemon,
+                        pokemon=pokemon,
                     )
 
                 # Update Pokemon stats
@@ -121,7 +121,7 @@ class PokemonDataView(View):
                             "effort": stat_info["effort"],
                             "base_stat_num": stat_info["base_stat"],
                         },
-                        pokemon_id=pokemon,
+                        pokemon=pokemon,
                     )
 
     def update_or_create_all(self, request) -> None:
