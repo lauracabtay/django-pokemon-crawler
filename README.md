@@ -7,7 +7,7 @@ This app interacts with the [PokeAPI](pokeapi.co) to fetch and store Pokemon dat
 
 - `/get-all-pokemons`: returns all pokemons names
 - `/pokemon/<pokemon_name>`: returns a pokemon's data
-- `/update-pokemon-data`: updates pokemons data from the [PokeAPI](pokeapi.co)
+- `/update-pokemon-data/`: updates pokemons data from the [PokeAPI](pokeapi.co)
 
 ## Tables
 
@@ -43,13 +43,13 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for M
 
 - `http GET http://0.0.0.0:8000/get-all-pokemons`
 - `http GET http://0.0.0.0:8000/pokemon/<pokemon_name>`
-- `http GET http GET http://0.0.0.0:8000/update-pokemon-data`
+- `http GET http GET http://0.0.0.0:8000/update-pokemon-data/`
 
 **Or Run the app**: [0.0.0.8000](0.0.0.8000)
 
 - `/get-all-pokemons`: returns all pokemons names
 - `/pokemon/<pokemon_name>`: returns a pokemon's data
-- `/update-pokemon-data`: updates pokemons data from [pokeapi.co](pokeapi.co) (logs indicate progress)
+- `/update-pokemon-data/`: updates pokemons data from [pokeapi.co](pokeapi.co) (logs indicate progress)
 
 ## Tests
 
