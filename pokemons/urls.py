@@ -8,7 +8,7 @@ urlpatterns = [
         name="get-all-pokemons",
     ),
     path(
-        "update-pokemon-data",
+        "update-pokemon-data/",
         PokemonUpdateDataView.as_view(),
         name="update-pokemon-data",
     ),
