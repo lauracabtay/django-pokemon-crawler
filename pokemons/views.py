@@ -1,3 +1,4 @@
+from .logger import logger
 import re
 import requests
 from .models import Pokemon, PokemonAbility, PokemonStats, PokemonType
@@ -139,8 +140,8 @@ class PokemonUpdateDataView(APIView):
             processed_pokemons += 1
 
             # Logs progress to server
-            if processed_pokemons % 10 == 0:
-                print(
+            if processed_pokemons % 20 == 0:
+                logger.info(
                     f"{round((processed_pokemons/pokemon_count) * 100, 1)}% completed"
                 )
 
