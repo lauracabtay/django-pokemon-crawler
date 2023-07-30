@@ -4,25 +4,24 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('pokemons', '0001_initial'),
+        ("pokemons", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='pokemonability',
-            old_name='pokemon_id',
-            new_name='pokemon',
+            model_name="pokemonability",
+            old_name="pokemon_id",
+            new_name="pokemon",
         ),
         migrations.RenameField(
-            model_name='pokemonstats',
-            old_name='pokemon_id',
-            new_name='pokemon',
+            model_name="pokemonstats",
+            old_name="pokemon_id",
+            new_name="pokemon",
         ),
         migrations.RenameField(
-            model_name='pokemontype',
-            old_name='pokemon_id',
-            new_name='pokemon',
+            model_name="pokemontype",
+            old_name="pokemon_id",
+            new_name="pokemon",
         ),
     ]

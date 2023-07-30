@@ -5,48 +5,91 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Pokemon',
+            name="Pokemon",
             fields=[
-                ('pokemon_id', models.IntegerField(primary_key=True, serialize=False)),
-                ('pokemon_name', models.CharField(max_length=50)),
-                ('height', models.IntegerField(null=True)),
-                ('weight', models.IntegerField(null=True)),
-                ('base_experience', models.IntegerField(null=True)),
+                ("pokemon_id", models.IntegerField(primary_key=True, serialize=False)),
+                ("pokemon_name", models.CharField(max_length=50)),
+                ("height", models.IntegerField(null=True)),
+                ("weight", models.IntegerField(null=True)),
+                ("base_experience", models.IntegerField(null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='PokemonType',
+            name="PokemonType",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type_name', models.CharField(max_length=50, null=True)),
-                ('pokemon_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='types', to='pokemons.pokemon')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("type_name", models.CharField(max_length=50, null=True)),
+                (
+                    "pokemon_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="types",
+                        to="pokemons.pokemon",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='PokemonStats',
+            name="PokemonStats",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('base_stat_name', models.CharField(max_length=50, null=True)),
-                ('effort', models.IntegerField(null=True)),
-                ('base_stat_num', models.IntegerField(null=True)),
-                ('pokemon_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='stats', to='pokemons.pokemon')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("base_stat_name", models.CharField(max_length=50, null=True)),
+                ("effort", models.IntegerField(null=True)),
+                ("base_stat_num", models.IntegerField(null=True)),
+                (
+                    "pokemon_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="stats",
+                        to="pokemons.pokemon",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='PokemonAbility',
+            name="PokemonAbility",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ability_name', models.CharField(max_length=50, null=True)),
-                ('is_hidden', models.BooleanField(null=True)),
-                ('pokemon_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='abilities', to='pokemons.pokemon')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("ability_name", models.CharField(max_length=50, null=True)),
+                ("is_hidden", models.BooleanField(null=True)),
+                (
+                    "pokemon_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="abilities",
+                        to="pokemons.pokemon",
+                    ),
+                ),
             ],
         ),
     ]
