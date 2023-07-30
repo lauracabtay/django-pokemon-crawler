@@ -5,24 +5,28 @@ This app interacts with the [PokeAPI](pokeapi.co) to fetch and store Pokemon dat
 
 ## Endpoints
 
-`/get-all-pokemons`: returns all pokemons names
-`/pokemon/<pokemon_name>`: returns a pokemon's data
-`/update-pokemon-data`: updates pokemons data from the [PokeAPI](pokeapi.co)
+- `/get-all-pokemons`: returns all pokemons names
+- `/pokemon/<pokemon_name>`: returns a pokemon's data
+- `/update-pokemon-data`: updates pokemons data from the [PokeAPI](pokeapi.co)
 
 ## Tables
 
-`pokemons_pokemon`
-`pokemons_pokemonability`
-`pokemons_pokemontype`
-`pokemons_pokemonstats`
+- `pokemons_pokemon`
+- `pokemons_pokemonability`
+- `pokemons_pokemontype`
+- `pokemons_pokemonstats`
 
 ## Getting started
 
 Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Mac or Windows. Docker Compose will be automatically installed.
 
-**Start the server**: `docker-compose up`
+**Start the server**:
 
-**Install dependencies**: `docker-compose exec web python -m pip install -r requirements.txt`
+- `docker-compose up`
+
+**Install dependencies**:
+
+- `docker-compose exec web python -m pip install -r requirements.txt`
 
 **Run migration**:
 
@@ -30,19 +34,22 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for M
 - `docker-compose exec web python manage.py migrate`
 
 **Connect to postgres**
-`docker-compose exec db psql --username=postgres`
+
+- `docker-compose exec db psql --username=postgres`
 
 ## Use the API
 
 **Try these commands**:
-`http GET http://0.0.0.0:8000/get-all-pokemons`
-`http GET http://0.0.0.0:8000/pokemon/<pokemon_name>`
-`http GET http GET http://0.0.0.0:8000/update-pokemon-data`
+
+- `http GET http://0.0.0.0:8000/get-all-pokemons`
+- `http GET http://0.0.0.0:8000/pokemon/<pokemon_name>`
+- `http GET http GET http://0.0.0.0:8000/update-pokemon-data`
 
 **Or Run the app**: [0.0.0.8000](0.0.0.8000)
-`/get-all-pokemons`: returns all pokemons names
-`/pokemon/<pokemon_name>`: returns a pokemon's data
-`/update-pokemon-data`: updates pokemons data from [pokeapi.co](pokeapi.co) (logs indicate progress)
+
+- `/get-all-pokemons`: returns all pokemons names
+- `/pokemon/<pokemon_name>`: returns a pokemon's data
+- `/update-pokemon-data`: updates pokemons data from [pokeapi.co](pokeapi.co) (logs indicate progress)
 
 ## Tests
 
