@@ -1,20 +1,7 @@
 # Pokemon Crawler
 
 A simple Pokemon API built on the Django Rest Framework.
-This app interacts with the [PokeAPI](pokeapi.co) to fetch and store Pokemon data in a postgres database
-
-## Endpoints
-
-- `/get-all-pokemons`: returns all pokemons names
-- `/pokemon/<pokemon_name>`: returns a pokemon's data
-- `/update-pokemon-data/`: updates pokemons data from the [PokeAPI](pokeapi.co)
-
-## Tables
-
-- `pokemons_pokemon`
-- `pokemons_pokemonability`
-- `pokemons_pokemontype`
-- `pokemons_pokemonstats`
+This app interacts with the [PokeAPI](pokeapi.co) to fetch and store Pokemon data in a postgres database.
 
 ## Getting started
 
@@ -33,6 +20,10 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for M
 - `docker-compose exec web python manage.py makemigrations pokemons`
 - `docker-compose exec web python manage.py migrate`
 
+To create or update pokemons:
+
+- `docker-compose exec web python manage.py update-pokemon-data`
+
 **Connect to postgres**
 
 - `docker-compose exec db psql --username=postgres`
@@ -41,19 +32,24 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for M
 
 **Try these commands**:
 
-- `http GET http://0.0.0.0:8000/get-all-pokemons`
+- `http GET http://0.0.0.0:8000/all-pokemons`
 - `http GET http://0.0.0.0:8000/pokemon/<pokemon_name>`
-- `http GET http GET http://0.0.0.0:8000/update-pokemon-data/`
 
 **Or Run the app**: [0.0.0.8000](0.0.0.8000)
 
-- `/get-all-pokemons`: returns all pokemons names
+- `/all-pokemons`: returns all pokemons names
 - `/pokemon/<pokemon_name>`: returns a pokemon's data
-- `/update-pokemon-data/`: updates pokemons data from [pokeapi.co](pokeapi.co) (logs indicate progress)
+
+## DB tables
+
+- `pokemons_pokemon`
+- `pokemons_pokemonability`
+- `pokemons_pokemontype`
+- `pokemons_pokemonstats`
 
 ## Tests
 
-Run tests: `docker-compose exec web python manage.py test pokemons`
+Run tests: `docker-compose exec web python manage.py test`
 
 ## Explainer
 
