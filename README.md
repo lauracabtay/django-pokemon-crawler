@@ -63,7 +63,7 @@ I designed my schema keeping in mind it will be mostly used for **reads** - with
   - Pokemon types are stored in the `pokemons_pokemontype` table.
   - Pokemon stats are stored in the `pokemons_pokemonstats` table.
 
-![Schema Design](./Schema.png)
+![Schema Design](./schema-design.png)
 
 I could certainly have normalised further more and have tables to hold ability names, type names, stat names and refer back to them via a foreign key in the tables above, however based on the current size of the Pokemon data, the space saving would be minimal (I estimated this at ~0.09 MB).
 
