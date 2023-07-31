@@ -90,7 +90,8 @@ I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to
 
   - To maintain data integrity and consistency, a Pokemon update is processed as a transaction, i.e. all the related data for a Pokemon is updated atomically: either all the changes are committed, or they are rolled back to prevent partially accurate data from being displayed.
 
-- I made use of Django Serializers to render the Pokemon data fetched from my database, as they have the advantage of converting query sets to Python datatypes (e.g. a dictionary) that can be rendered into `JSON`.
+- I created my endpoints to fetch Pokemon data using the Django REST Framework and
+  and its Serializers, as they have the advantage of converting query sets to Python datatypes (e.g. a dictionary) that can be rendered into `JSON`.
 
 - Being a Django first time user, there are things I haven’t quite figured out, such as returning a JSON response for 404. The content is currently returned as text/html and I haven’t found how to make it return a JSON. This is not a behaviour I would want to implement and I would want to be consistent with the standard response JSON format.
 
