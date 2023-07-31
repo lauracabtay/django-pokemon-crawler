@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from celery.schedules import crontab
 from pathlib import Path
 import os
 
@@ -28,6 +29,19 @@ SECRET_KEY = "bz_=v_sn7ubj7mbg)016fgyok0c1x8(8@6+34&c!*jkw3u0r*g"
 DEBUG = True
 
 ALLOWED_HOSTS = ["0.0.0.0"]
+
+# Celery settings
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+
+CELERY_TIMEZONE = "Europe/London"
+
+CELERY_BEAT_SCHEDULE = {
+    'update_pokemon_data_task': {
+        'task': 'pokemons.tasks.update_pokemon_data',
+        'schedule': crontab(minute=0, hour=0), # Task scheduled to run daily at 12.00AM
+    },
+}
 
 # Application definition
 
