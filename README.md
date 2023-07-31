@@ -57,9 +57,15 @@ Run tests: `docker-compose exec web python manage.py test`
 
 I designed my schema keeping in mind it will be mostly used for **reads** - with only occasional **writes** - meaning the number of joins would impact query performance. Whilst some level of normalisation was required to avoid redundancies, I decided not to extensively normalise the schema:
 
-- Pokemon main characteristics are stored in the pokemons_pokemon table
-- The pokemon_id is used as a foreign key in the following tables: - Pokemon abilities are stored in the pokemons_pokemonability table - Pokemon types are stored in the pokemons_pokemontype table - Pokemon stats are stored in the pokemons_pokemonstats table
-  I could certainly have normalised further more and have tables to hold ability names, type names, stat names and refer back to them via a foreign key in the tables above, however based on the current size of the Pokemon data, the space saving would be minimal (I estimated this at ~0.09 MB).
+- Pokemon main characteristics are stored in the `pokemons_pokemon` table
+- The pokemon_id is used as a foreign key in the following tables:
+  - Pokemon abilities are stored in the `pokemons_pokemonability` table.
+  - Pokemon types are stored in the `pokemons_pokemontype` table.
+  - Pokemon stats are stored in the `pokemons_pokemonstats` table.
+
+![Schema Design](./Schema.png)
+
+I could certainly have normalised further more and have tables to hold ability names, type names, stat names and refer back to them via a foreign key in the tables above, however based on the current size of the Pokemon data, the space saving would be minimal (I estimated this at ~0.09 MB).
 
 **_Note: This is my first time using Django and I haven’t figured out how to define table names, meaning I appreciate that my table names may not be very conventional!_**
 
