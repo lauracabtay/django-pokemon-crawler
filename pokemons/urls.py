@@ -1,16 +1,11 @@
 from django.urls import path
-from .views import GetAllPokemonsView, PokemonUpdateDataView, PokemonDetailsView
+from .views import GetAllPokemonsView, PokemonDetailsView
 
 urlpatterns = [
     path(
-        "get-all-pokemons",
+        "all-pokemons",
         GetAllPokemonsView.as_view(),
-        name="get-all-pokemons",
-    ),
-    path(
-        "update-pokemon-data/",
-        PokemonUpdateDataView.as_view(),
-        name="update-pokemon-data",
+        name="all-pokemons",
     ),
     path(
         "pokemon/<str:pokemon_name>",
