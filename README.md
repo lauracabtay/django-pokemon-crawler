@@ -31,6 +31,7 @@ To create or update pokemons:
 **Run the scheduler**
 
 - `docker-compose exec web python -m celery -A app beat -l info`
+
 The schedule can be changed in the `CELERY_BEAT_SCHEDULE` block in `settings.py`.
 
 ## Use the API
