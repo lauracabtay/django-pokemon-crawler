@@ -102,7 +102,7 @@ I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to
 
 ### With more time, I would have considered:
 
-- Making the update-pokemon-data command asynchronous (would increase speed of processing and make it more scalable).
+- Implement asynchronous or parallelised execution of the update-pokemon-data command (would increase speed of processing and make it more scalable).
 - Implementing a scheduler - this would run the update automatically at a time where there is less traffic - e.g. night time.
 - Implementing deletions of Pokemons that don’t exist anymore (if this is a thing).
 - Handling exceptions in a less generic way.
