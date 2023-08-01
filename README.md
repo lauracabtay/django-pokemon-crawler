@@ -99,7 +99,7 @@ I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to
 - I created my endpoints to fetch Pokemon data using the Django REST Framework and
   and its Serializers, as they have the advantage of converting query sets to Python datatypes (e.g. a dictionary) that can be rendered into `JSON`.
 
-- I also implemented a scheduler running with Celery. It schedules the `update_pokemon_task` to run daily at 12.00AM (i.e. a time where there is less traffic - at least in this region).
+- I also implemented a scheduler running with Celery. This allows the `update_pokemon_data` task to run asynchronously, by having a Celery worker executing it in the background. It schedules the `update_pokemon_task` to run daily at 12.00AM (this requires the scheduler container to run).
 
 - Being a Django first time user, there are things I haven’t quite figured out, such as returning a `JSON` response for `404`. The content is currently returned as text/html and I haven’t found how to make it return a `JSON`. This is not a behaviour I would want to implement and I would want to be consistent with the standard response `JSON` format.
 
@@ -110,7 +110,7 @@ I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to
 
 ### With more time, I would have considered:
 
-- Implement asynchronous or parallelised execution of the `update-pokemon-data` command (would increase speed of processing and make it more scalable).
+- Implement parallelised execution of the `update-pokemon-data` command (would increase speed of processing and make it more scalable).
 - Implementing deletions of Pokemons that don’t exist anymore (if this is a thing).
 - Handling exceptions in a less generic way.
 - Testing exceptions.
