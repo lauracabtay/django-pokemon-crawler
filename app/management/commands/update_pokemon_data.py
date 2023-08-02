@@ -67,21 +67,23 @@ class Command(BaseCommand):
                     # Update Pokemon abilities
                     for ability_info in pokemon_data["abilities"]:
                         PokemonAbility.objects.update_or_create(
-                            pokemon=pokemon, ability_name=ability_info["ability"]["name"],
+                            pokemon=pokemon,
+                            ability_name=ability_info["ability"]["name"],
                             defaults={"is_hidden": ability_info["is_hidden"]},
-                            
                         )
 
                     # Update Pokemon types
                     for type_info in pokemon_data["types"]:
                         PokemonType.objects.update_or_create(
-                            pokemon=pokemon, type_name=type_info["type"]["name"],
+                            pokemon=pokemon,
+                            type_name=type_info["type"]["name"],
                         )
 
                     # Update Pokemon stats
                     for stat_info in pokemon_data["stats"]:
                         PokemonStats.objects.update_or_create(
-                            pokemon=pokemon, base_stat_name=stat_info["stat"]["name"],
+                            pokemon=pokemon,
+                            base_stat_name=stat_info["stat"]["name"],
                             defaults={
                                 "effort": stat_info["effort"],
                                 "base_stat_num": stat_info["base_stat"],
