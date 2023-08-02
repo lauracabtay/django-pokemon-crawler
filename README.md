@@ -22,7 +22,7 @@ Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for M
 
 To create or update pokemons:
 
-- `docker-compose exec web python manage.py update-pokemon-data`
+- `docker-compose exec web python manage.py update_pokemon_data`
 
 **Connect to postgres**
 
@@ -82,7 +82,7 @@ I could certainly have normalised further more and have tables to hold ability n
 I opted for a simple API with 2 endpoints:
 
 - `/all-pokemons`: `GET` request fetching all pokemon names. Response is a simple JSON object with a list of pokemon names.
-- `/pokemon/<pokemon_id>`: `GET` request fetching a given pokemon data. Response is a JSON object with the Pokemon data (JSON seemed to be the best option here as it can be very easily extended if we were to fetch additional data).
+- `/pokemon/<pokemon_name>`: `GET` request fetching a given pokemon data. Response is a JSON object with the Pokemon data (JSON seemed to be the best option here as it can be very easily extended if we were to fetch additional data).
 
 I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to the `/update-pokemon-data` endpoint would trigger the update and return the update result as a response (i.e. successful or not)). However, I ended up finding this confusing and a bit of a REST anti pattern in some ways. I eventually opted for a command that can be run from the command line. I added some logs so that the person triggering the update can get some feedback on the update progress.
 
@@ -96,7 +96,7 @@ I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to
 
   - To maintain data integrity and consistency, a Pokemon update is processed as a transaction, i.e. all the related data for a Pokemon is updated atomically: either all the changes are committed, or they are rolled back to prevent partially accurate data from being displayed.
 
-- I created my endpoints to fetch Pokemon data using the Django REST Framework and
+- I created my endpoints to fetch Pokemon data using the Django REST Framework
   and its Serializers, as they have the advantage of converting query sets to Python datatypes (e.g. a dictionary) that can be rendered into `JSON`.
 
 - I also implemented a scheduler running with Celery. This allows the `update_pokemon_data` task to run asynchronously, by having a Celery worker executing it in the background. It schedules the `update_pokemon_task` to run daily at 12.00AM (this requires the scheduler container to run).
@@ -112,6 +112,5 @@ I initially opted for a 3rd endpoint to update the data (i.e. a `GET` request to
 
 - Implement parallelised execution of the `update-pokemon-data` command (would increase speed of processing and make it more scalable).
 - Implementing deletions of Pokemons that don’t exist anymore (if this is a thing).
-- Handling exceptions in a less generic way.
 - Testing exceptions.
 - Implementing a small CI/CD pipeline (run tests, build, deploy)
