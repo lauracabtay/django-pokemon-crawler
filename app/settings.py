@@ -37,9 +37,9 @@ CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 CELERY_TIMEZONE = "Europe/London"
 
 CELERY_BEAT_SCHEDULE = {
-    'update_pokemon_data_task': {
-        'task': 'pokemons.tasks.update_pokemon_data',
-        'schedule': crontab(minute=0, hour=0), # Task scheduled to run daily at 12.00AM
+    "update_pokemon_data_task": {
+        "task": "pokemons.tasks.update_pokemon_data",
+        "schedule": crontab(minute=0, hour=0),  # Task scheduled to run daily at 12.00AM
     },
 }
 
