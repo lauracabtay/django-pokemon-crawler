@@ -4,8 +4,6 @@ import re
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from requests.exceptions import HTTPError
-from rest_framework.exceptions import APIException
 from typing import List
 
 from pokemons.models import Pokemon, PokemonAbility, PokemonStats, PokemonType
@@ -20,12 +18,9 @@ class Command(BaseCommand):
     """Update or create Pokemon records using data from the PokeAPI."""
 
     def handle(self, *args, **kwargs) -> None:
-        try:
-            logger.info("Starting Pokemon data update")
-            self.update_or_create_all()
-            logger.info("Data update successful.")
-        except HTTPError as err:
-            raise APIException("Pokemon not found or API unavailable.") from err
+        logger.info("Starting Pokemon data update")
+        self.update_or_create_all()
+        logger.info("Data update successful.")
 
     def update_or_create_all(self) -> None:
         """
@@ -36,13 +31,16 @@ class Command(BaseCommand):
         processed_pokemons = 0
 
         for pokemon_id in pokemons_ids:
-            self.update_or_create_record(pokemon_id)
-            processed_pokemons += 1
+            try:
+                self.update_or_create_record(pokemon_id)
+                processed_pokemons += 1
 
-            if processed_pokemons % 20 == 0:
-                logger.info(
-                    f"{round((processed_pokemons/pokemon_count) * 100, 1)}% completed"
-                )
+                if processed_pokemons % 20 == 0:
+                    logger.info(
+                        f"{round((processed_pokemons/pokemon_count) * 100, 1)}% completed"
+                    )
+            except:
+                logger.warning(f"Pokemon {pokemon_id} not found")
 
     def update_or_create_record(self, pokemon_id) -> None:
         """
@@ -68,35 +66,30 @@ class Command(BaseCommand):
 
                     # Update Pokemon abilities
                     for ability_info in pokemon_data["abilities"]:
-                        _ = PokemonAbility.objects.update_or_create(
-                            ability_name=ability_info["ability"]["name"],
+                        PokemonAbility.objects.update_or_create(
+                            pokemon=pokemon, ability_name=ability_info["ability"]["name"],
                             defaults={"is_hidden": ability_info["is_hidden"]},
-                            pokemon=pokemon,
+                            
                         )
 
                     # Update Pokemon types
                     for type_info in pokemon_data["types"]:
-                        _ = PokemonType.objects.update_or_create(
-                            type_name=type_info["type"]["name"],
-                            pokemon=pokemon,
+                        PokemonType.objects.update_or_create(
+                            pokemon=pokemon, type_name=type_info["type"]["name"],
                         )
 
                     # Update Pokemon stats
                     for stat_info in pokemon_data["stats"]:
-                        _ = PokemonStats.objects.update_or_create(
-                            base_stat_name=stat_info["stat"]["name"],
+                        PokemonStats.objects.update_or_create(
+                            pokemon=pokemon, base_stat_name=stat_info["stat"]["name"],
                             defaults={
                                 "effort": stat_info["effort"],
                                 "base_stat_num": stat_info["base_stat"],
                             },
-                            pokemon=pokemon,
                         )
 
-        except HTTPError as err:
-            raise APIException("Pokemon not found or API unavailable.") from err
-
-        except ValueError as err:
-            raise APIException(f"Unexpected response from PokeAPI: {err}") from err
+        except Exception as e:
+            logger.warning(f"Unexpected response from PokeAPI: {e}")
 
     def get_all_pokemon_ids(self) -> List[str]:
         """
@@ -120,7 +113,7 @@ class Command(BaseCommand):
                 pokemon_ids.append(pokemon_id)
             return pokemon_ids
         except Exception as e:
-            raise APIException(detail=f"Error fetching Pokemon data: {e}") from e
+            logger.warning(f"Error fetching Pokemon data: {e}")
 
     def extract_pokemon_id(self, url) -> str:
         """
