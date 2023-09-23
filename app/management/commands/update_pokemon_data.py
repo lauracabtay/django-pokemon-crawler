@@ -59,9 +59,11 @@ class Command(BaseCommand):
                     pokemon, created = Pokemon.objects.update_or_create(
                         pokemon_id=pokemon_data["id"],
                         pokemon_name=pokemon_data["name"],
-                        height=pokemon_data["height"],
-                        weight=pokemon_data["weight"],
-                        base_experience=pokemon_data["base_experience"],
+                        defaults={
+                            "height":pokemon_data["height"],
+                            "weight":pokemon_data["weight"],
+                            "base_experience":pokemon_data["base_experience"],
+                        }
                     )
 
                     # Update Pokemon abilities
@@ -69,7 +71,9 @@ class Command(BaseCommand):
                         PokemonAbility.objects.update_or_create(
                             pokemon=pokemon,
                             ability_name=ability_info["ability"]["name"],
-                            defaults={"is_hidden": ability_info["is_hidden"]},
+                            defaults={
+                                "is_hidden": ability_info["is_hidden"]
+                            },
                         )
 
                     # Update Pokemon types
@@ -77,6 +81,9 @@ class Command(BaseCommand):
                         PokemonType.objects.update_or_create(
                             pokemon=pokemon,
                             type_name=type_info["type"]["name"],
+                            defaults={
+                                "type_url":type_info["type"]["url"]
+                            }
                         )
 
                     # Update Pokemon stats

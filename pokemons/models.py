@@ -24,6 +24,7 @@ class PokemonAbility(models.Model):
 
 class PokemonType(models.Model):
     type_name = models.CharField(max_length=50, null=True)
+    type_url = models.CharField(max_length=100, null=True)
     pokemon = models.ForeignKey(Pokemon, related_name="types", on_delete=models.CASCADE)
 
     objects = models.Manager()

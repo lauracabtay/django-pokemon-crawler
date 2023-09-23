@@ -14,7 +14,7 @@ class GetAllPokemonsView(APIView):
     def get(self, request) -> Response:
         try:
             all_pokemon_names = Pokemon.objects.values_list("pokemon_name", flat=True)
-            sorted_pokemon_names = sorted(all_pokemon_names, key=str.casefold)
+            sorted_pokemon_names = sorted(all_pokemon_names, key=str)
             return Response({"pokemon_names": sorted_pokemon_names})
         except Exception as err:
             raise APIException(
