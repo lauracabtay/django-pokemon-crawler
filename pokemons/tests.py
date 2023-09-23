@@ -43,7 +43,9 @@ class TestPokemonViewsIntegration(TestCase):
         PokemonAbility.objects.create(
             ability_name="chlorophyll", is_hidden=False, pokemon=pokemon_bulbasaur
         )
-        PokemonType.objects.create(type_name="grass", pokemon=pokemon_bulbasaur)
+        PokemonType.objects.create(
+            type_name="grass", type_url="https://pokeapi.co/api/v2/type/12/", pokemon=pokemon_bulbasaur
+        )
         PokemonStats.objects.create(
             base_stat_name="speed",
             effort=0,
@@ -64,7 +66,9 @@ class TestPokemonViewsIntegration(TestCase):
                 "weight": 69,
                 "base_experience": 64,
                 "abilities": [{"ability_name": "chlorophyll", "is_hidden": False}],
-                "types": [{"type_name": "grass"}],
+                "types": [
+                    {"type_name": "grass", "type_url": "https://pokeapi.co/api/v2/type/12/"}
+                ],
                 "stats": [
                     {"base_stat_name": "speed", "effort": 0, "base_stat_num": 45}
                 ],

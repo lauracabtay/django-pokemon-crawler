@@ -57,7 +57,7 @@ class TestUpdatePokemonData(TestCase):
             "weight": 69,
             "base_experience": 64,
             "abilities": [{"ability": {"name": "overgrow"}, "is_hidden": False}],
-            "types": [{"type": {"name": "grass"}}],
+            "types": [{"type": {"name": "grass", "url": "https://pokeapi.co/api/v2/type/12/"}}],
             "stats": [{"stat": {"name": "hp"}, "effort": 0, "base_stat": 45}],
         }
         mock_response.json.return_value = mock_pokemon_data
