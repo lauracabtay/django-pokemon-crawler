@@ -16,7 +16,7 @@ class PokemonAbilitySerializer(serializers.ModelSerializer):
 class PokemonTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PokemonType
-        fields = ["type_name"]
+        fields = ["type_name", "type_url"]
 
 
 class PokemonStatsSerializer(serializers.ModelSerializer):
